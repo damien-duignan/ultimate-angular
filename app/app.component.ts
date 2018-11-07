@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 interface Passenger {
   id: number,
   fullName: string,
-  checkedIn: boolean
+  checkedIn: boolean,
+  checkInDate?: number;
 }
 
 @Component({
@@ -17,38 +18,13 @@ interface Passenger {
         <span 
           class="status"
           [class.checked-in]="passenger.checkedIn"></span>
-          {{ i }}: {{passenger.fullName}}
-        </li>
-      </ul>
-      <h3>Airline Passengers</h3>
-      <ul>
-        <li *ngFor="let passenger of passengers; let i = index;">
-        <span 
-          class="status"
-          [ngClass]="{ 
-            'checked-in': passenger.checkedIn,
-            'checked-out': !passenger.checkedIn
-          }"></span>
-          {{ i }}: {{passenger.fullName}}
-        </li>
-      </ul>
-      <h3>Airline Passengers</h3>
-      <ul>
-        <li *ngFor="let passenger of passengers; let i = index;">
-        <span 
-          class="status"
-          [style.backgroundColor]="(passenger.checkedIn ? '#2ecc71' : '#c0392b')"></span>
-          {{ i }}: {{passenger.fullName}}
-        </li>
-      </ul>
-      <h3>Airline Passengers</h3>
-      <ul>
-        <li *ngFor="let passenger of passengers; let i = index;">
-        <span 
-          class="status"
-          [ngStyle]="{
-            backgroundColor: (passenger.checkedIn ? '#2ecc71' : '#c0392b')}"></span>
-          {{ i }}: {{passenger.fullName}}
+          {{ i }}: {{ passenger.fullName }}
+          <p>
+            {{ passenger | json }}
+          </p>
+          <div class="date">
+            Check in date: {{passenger.checkInDate ? (passenger.checkInDate | date: 'yMMMMd' | uppercase): 'Not checked in' }}
+          </div>
         </li>
       </ul>
     </div>
@@ -59,17 +35,32 @@ export class AppComponent {
     {
       id: 1,
       fullName: 'Stephen',
-      checkedIn: true
-    },
+      checkedIn: true,
+      checkInDate: 1490742000000
+    }, 
     {
-      id: 1,
+      id: 2,
       fullName: 'Rose',
-      checkedIn: false
-    },
+      checkedIn: false,
+      checkInDate: null
+    }, 
     {
-      id: 1,
+      id: 3,
       fullName: 'James',
-      checkedIn: true
+      checkedIn: true,
+      checkInDate: 1491606000000
+    }, 
+    {
+      id: 4,
+      fullName: 'Louise',
+      checkedIn: true,
+      checkInDate: 1488412800000
+    }, 
+    {
+      id: 5,
+      fullName: 'Tina',
+      checkedIn: false,
+      checkInDate: null
     }
   ];
 }
